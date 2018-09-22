@@ -8,18 +8,19 @@ package io.github.sampathsl.springboot.exceptionhandling.model;
 import java.util.Map;
 
 /**
- *
  * @author SAMPATH
  */
 public class ExceptionResponse {
 
-    public Integer status;
-    public String errorMessage;
-    public String timeStamp;
-    public String trace;
+    private Integer status;
+    private String path;
+    private String errorMessage;
+    private String timeStamp;
+    private String trace;
 
     public ExceptionResponse(int status, Map<String, Object> errorAttributes) {
         this.status = status;
+        this.path = (String) errorAttributes.get("path");
         this.errorMessage = (String) errorAttributes.get("message");
         this.timeStamp = errorAttributes.get("timestamp").toString();
         this.trace = (String) errorAttributes.get("trace");
@@ -57,4 +58,11 @@ public class ExceptionResponse {
         this.trace = trace;
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 }
