@@ -5,19 +5,16 @@
  */
 package io.github.sampathsl.springboot.exceptionhandling.exception;
 
-/**
- *
- * @author SAMPATH
- */
+/** @author SAMPATH */
 public class ShopServiceException extends Exception {
 
-    private static final long serialVersionUID = 5970299497591013820L;
+  private static final long serialVersionUID = 5970299497591013820L;
 
-    public ShopServiceException() {
-        super();
-    }
+  public ShopServiceException() {
+    super();
+  }
 
-    public ShopServiceException(final String message) {
-        super(message);
-    }
+  public ShopServiceException(final String message) {
+    super(message);
+  }
 }

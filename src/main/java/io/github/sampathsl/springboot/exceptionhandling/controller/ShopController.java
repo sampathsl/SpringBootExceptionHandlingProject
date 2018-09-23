@@ -5,63 +5,58 @@
  */
 package io.github.sampathsl.springboot.exceptionhandling.controller;
 
-import io.github.sampathsl.springboot.exceptionhandling.exception.ShopServiceException;
 import io.github.sampathsl.springboot.exceptionhandling.exception.ResourceNotFoundException;
+import io.github.sampathsl.springboot.exceptionhandling.exception.ShopServiceException;
 import io.github.sampathsl.springboot.exceptionhandling.model.Shop;
 import io.github.sampathsl.springboot.exceptionhandling.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @author SAMPATH
- */
+import java.util.List;
+
+/** @author SAMPATH */
 @RestController
 public class ShopController {
 
-    @Autowired
-    ShopService shopService;
+  private static final String SHOPS_NOT_FOUND = "Shops not found";
+  private static final String INTERNAL_SERVER_ERROR = "Internal Server Exception while getting shops";
 
-    @RequestMapping(value = "/shops", method = RequestMethod.GET)
-    public Shop getShops() throws ResourceNotFoundException, ShopServiceException {
-        try {
-            Shop shop = shopService.getShop();
+  @Autowired private ShopService shopService;
 
-            if (shop == null) {
-                throw new ResourceNotFoundException("Shop not found");
-            }
-            return shop;
-        } catch (ShopServiceException e) {
-            throw new ShopServiceException("Internal Server Exception while getting exception");
-        }
+  public void setShopService(ShopService shopService) {
+    this.shopService = shopService;
+  }
+
+  @GetMapping(value = "/shops")
+  public List<Shop> getAllShops() throws ResourceNotFoundException {
+    List<Shop> shops = shopService.getShops();
+    if (shops == null) {
+      throw new ResourceNotFoundException(SHOPS_NOT_FOUND);
+    }
+    return shops;
+  }
+
+  @GetMapping(value = "/shop-one")
+  public Shop getUnknownShop() throws ResourceNotFoundException {
+    Shop shop = shopService.getShopNull();
+    if (shop == null) {
+      throw new ResourceNotFoundException(SHOPS_NOT_FOUND);
     }
 
-    @RequestMapping(value = "/shop1", method = RequestMethod.GET)
-    public Shop getUnknownShopOne() throws ResourceNotFoundException, ShopServiceException {
-        try {
-            Shop shop = shopService.getShopNull();
-            if (shop == null) {
-                throw new ResourceNotFoundException("Shop not found");
-            }
+    return shop;
+  }
 
-            return shop;
-        } catch (ShopServiceException e) {
-            throw new ShopServiceException("Internal Server Exception while getting exception");
-        }
+  @GetMapping(value = "/shop-two")
+  public Shop getUnknownShopTwo() throws ResourceNotFoundException, ShopServiceException {
+    try {
+      Shop shop = shopService.getShopException();
+      if (shop == null) {
+        throw new ResourceNotFoundException(SHOPS_NOT_FOUND);
+      }
+      throw new ShopServiceException(INTERNAL_SERVER_ERROR);
+    } catch (ShopServiceException e) {
+      throw new ShopServiceException(INTERNAL_SERVER_ERROR);
     }
-    
-    @RequestMapping(value = "/shop2", method = RequestMethod.GET)
-    public Shop getUnknownShopTwo() throws ResourceNotFoundException, ShopServiceException {
-        try {
-            Shop shop = shopService.getShopException();
-            if (shop == null) {
-                throw new ResourceNotFoundException("Shop not found");
-            }
-            return shop;
-        } catch (ShopServiceException e) {
-            throw new ShopServiceException("Internal Server Exception while getting exception");
-        }
-    }
+  }
 }

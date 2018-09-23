@@ -16,7 +16,6 @@
 //import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- *
  * @author SAMPATH
  */
 //@ControllerAdvice
@@ -47,7 +46,7 @@
 //
 //        return error;
 //    }
-    
+
 //     @ExceptionHandler(value = Exception.class)
 //    public ModelAndView defaultErrorHandler(HttpServletRequest request, Exception e) {
 //        ModelAndView mav = new ModelAndView();

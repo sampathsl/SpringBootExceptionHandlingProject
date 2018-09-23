@@ -12,14 +12,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class InvalidRequestException extends RuntimeException {
 
-    /**
-     *
-     * @author SAMPATH
-     */
-    private static final long serialVersionUID = 5990299497591013820L;
+  /** @author SAMPATH */
+  private static final long serialVersionUID = 5990299497591013820L;
 
-    public InvalidRequestException(String message) {
-        super(message);
-    }
-
+  public InvalidRequestException(String message) {
+    super(message);
+  }
 }

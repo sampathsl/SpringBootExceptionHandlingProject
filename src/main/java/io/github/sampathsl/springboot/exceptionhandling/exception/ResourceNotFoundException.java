@@ -5,20 +5,16 @@
  */
 package io.github.sampathsl.springboot.exceptionhandling.exception;
 
-/**
- *
- * @author SAMPATH
- */
+/** @author SAMPATH */
 public class ResourceNotFoundException extends Exception {
 
-    private static final long serialVersionUID = 5590299497591013820L;
+  private static final long serialVersionUID = 5590299497591013820L;
 
-    public ResourceNotFoundException() {
-        super();
-    }
+  public ResourceNotFoundException() {
+    super();
+  }
 
-    public ResourceNotFoundException(final String message) {
-        super(message);
-    }
-
+  public ResourceNotFoundException(final String message) {
+    super(message);
+  }
 }

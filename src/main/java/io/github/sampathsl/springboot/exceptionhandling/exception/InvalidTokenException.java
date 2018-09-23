@@ -8,22 +8,14 @@ package io.github.sampathsl.springboot.exceptionhandling.exception;
 
 public class InvalidTokenException extends SecurityException {
 
-    /**
-     *
-     * @author SAMPATH
-     */
-    private static final long serialVersionUID = 5890299497591013820L;
-    public static final int HTTP_ERROR_CODE = 401;
+  /** @author SAMPATH */
+  private static final long serialVersionUID = 5890299497591013820L;
 
-    public InvalidTokenException(String msg, Throwable cause) {
-        super(msg, cause);
-    }
+  public InvalidTokenException(String msg, Throwable cause) {
+    super(msg, cause);
+  }
 
-    public InvalidTokenException(String msg) {
-        super(msg);
-    }
-
-    public int getHttpErrorCode() {
-        return HTTP_ERROR_CODE;
-    }
+  public InvalidTokenException(String msg) {
+    super(msg);
+  }
 }
