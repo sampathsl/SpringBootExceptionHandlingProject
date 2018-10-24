@@ -1,7 +1,7 @@
 package io.github.sampathsl.SpringBootExceptionHandling.controller;
 
 import io.github.sampathsl.springboot.exceptionhandling.controller.ShopController;
-import io.github.sampathsl.springboot.exceptionhandling.exception.ResourceNotFoundException;
+import io.github.sampathsl.springboot.exceptionhandling.exception.ContentNotFoundException;
 import io.github.sampathsl.springboot.exceptionhandling.exception.ShopServiceException;
 import io.github.sampathsl.springboot.exceptionhandling.model.Shop;
 import io.github.sampathsl.springboot.exceptionhandling.service.ShopService;
@@ -53,46 +53,46 @@ public class ShopControllerTest extends Mockito {
   }
 
   @Test
-  public void getAllShopsTest() throws ResourceNotFoundException {
+  public void getAllShopsTest() throws ContentNotFoundException {
     logger.info("Get All Shops Test");
     List<Shop> shops = shopController.getAllShops();
     Assert.assertNotNull(shops);
     Assert.assertEquals(2, shops.size());
   }
 
-  @Test(expected = ResourceNotFoundException.class)
-  public void getAllShopsTestExtended() throws ResourceNotFoundException {
+  @Test(expected = ContentNotFoundException.class)
+  public void getAllShopsTestExtended() throws ContentNotFoundException {
     logger.info("Get All Shops Test Two Extended");
     when(shopService.getShops()).thenReturn(null);
     List<Shop> shops = shopController.getAllShops();
     Assert.assertNull(shops);
   }
 
-  @Test(expected = ResourceNotFoundException.class)
-  public void getUnknownShopTest() throws ResourceNotFoundException {
+  @Test(expected = ContentNotFoundException.class)
+  public void getUnknownShopTest() throws ContentNotFoundException {
     logger.info("Get Unknown Shop Test");
     Shop shop = shopController.getUnknownShop();
     Assert.assertNull(shop);
   }
 
   @Test
-  public void getUnknownShopTestExtended() throws ResourceNotFoundException {
+  public void getUnknownShopTestExtended() throws ContentNotFoundException {
     logger.info("Get Unknown Shop Test Extended");
     when(shopService.getShopNull()).thenReturn(shopOne);
     Shop shop = shopController.getUnknownShop();
     Assert.assertNotNull(shop);
   }
 
-  @Test(expected = Exception.class)
-  public void getUnknownShopTwoTest() throws ResourceNotFoundException, ShopServiceException {
+  @Test(expected = ContentNotFoundException.class)
+  public void getUnknownShopTwoTest() throws ContentNotFoundException, ShopServiceException {
     logger.info("Get Unknown Shop Two Test");
     Shop shop = shopController.getUnknownShopTwo();
     Assert.assertNull(shop);
   }
 
-  @Test(expected = Exception.class)
+  @Test(expected = ShopServiceException.class)
   public void getUnknownShopTwoTestExtended()
-      throws ResourceNotFoundException, ShopServiceException {
+      throws ContentNotFoundException, ShopServiceException {
     logger.info("Get Unknown Shop Two Test Extended");
     when(shopService.getShopException()).thenReturn(new Shop());
     Shop shop = shopController.getUnknownShopTwo();

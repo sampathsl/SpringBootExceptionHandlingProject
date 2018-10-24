@@ -5,7 +5,7 @@
  */
 package io.github.sampathsl.springboot.exceptionhandling.controller;
 
-import io.github.sampathsl.springboot.exceptionhandling.exception.ResourceNotFoundException;
+import io.github.sampathsl.springboot.exceptionhandling.exception.ContentNotFoundException;
 import io.github.sampathsl.springboot.exceptionhandling.exception.ShopServiceException;
 import io.github.sampathsl.springboot.exceptionhandling.model.Shop;
 import io.github.sampathsl.springboot.exceptionhandling.service.ShopService;
@@ -29,30 +29,30 @@ public class ShopController {
   }
 
   @GetMapping(value = "/shops")
-  public List<Shop> getAllShops() throws ResourceNotFoundException {
+  public List<Shop> getAllShops() throws ContentNotFoundException {
     List<Shop> shops = shopService.getShops();
     if (shops == null) {
-      throw new ResourceNotFoundException(SHOPS_NOT_FOUND);
+      throw new ContentNotFoundException(SHOPS_NOT_FOUND);
     }
     return shops;
   }
 
   @GetMapping(value = "/shop-one")
-  public Shop getUnknownShop() throws ResourceNotFoundException {
+  public Shop getUnknownShop() throws ContentNotFoundException {
     Shop shop = shopService.getShopNull();
     if (shop == null) {
-      throw new ResourceNotFoundException(SHOPS_NOT_FOUND);
+      throw new ContentNotFoundException(SHOPS_NOT_FOUND);
     }
 
     return shop;
   }
 
   @GetMapping(value = "/shop-two")
-  public Shop getUnknownShopTwo() throws ResourceNotFoundException, ShopServiceException {
+  public Shop getUnknownShopTwo() throws ContentNotFoundException, ShopServiceException {
     try {
       Shop shop = shopService.getShopException();
       if (shop == null) {
-        throw new ResourceNotFoundException(SHOPS_NOT_FOUND);
+        throw new ContentNotFoundException(SHOPS_NOT_FOUND);
       }
       throw new ShopServiceException(INTERNAL_SERVER_ERROR);
     } catch (ShopServiceException e) {
