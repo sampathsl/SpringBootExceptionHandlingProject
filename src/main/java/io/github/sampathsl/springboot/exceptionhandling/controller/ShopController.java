@@ -29,7 +29,7 @@ public class ShopController {
   }
 
   @GetMapping(value = "/shops")
-  public List<Shop> getAllShops() throws ContentNotFoundException {
+  public List<Shop> getAllShops() {
     List<Shop> shops = shopService.getShops();
     if (shops == null) {
       throw new ContentNotFoundException(SHOPS_NOT_FOUND);
@@ -38,7 +38,7 @@ public class ShopController {
   }
 
   @GetMapping(value = "/shop-one")
-  public Shop getUnknownShop() throws ContentNotFoundException {
+  public Shop getUnknownShop() {
     Shop shop = shopService.getShopNull();
     if (shop == null) {
       throw new ContentNotFoundException(SHOPS_NOT_FOUND);
@@ -48,7 +48,7 @@ public class ShopController {
   }
 
   @GetMapping(value = "/shop-two")
-  public Shop getUnknownShopTwo() throws ContentNotFoundException, ShopServiceException {
+  public Shop getUnknownShopTwo() throws ShopServiceException {
     try {
       Shop shop = shopService.getShopException();
       if (shop == null) {
